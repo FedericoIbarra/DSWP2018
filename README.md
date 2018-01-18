@@ -5,3 +5,4 @@ Integrantes del equipo:
   -Elias Gaspar Arellano IS704205
   -Diego Alejandro Galindo Valadez IS690634
   -Mancisidor Leguízamo Aitor Manuel IS702449
+  -Amaya Zendejas José Eduardo IS702555
