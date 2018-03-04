@@ -6,3 +6,4 @@ Integrantes del equipo:
   -Diego Alejandro Galindo Valadez IS690634
   -Mancisidor Leguízamo Aitor Manuel IS702449
   -Amaya Zendejas José Eduardo IS702555
+  -Enrique Martín del Campo Hernández IS711748
