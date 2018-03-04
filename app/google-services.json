@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1036402578665",
+    "firebase_url": "https://sportsquare-2995e.firebaseio.com",
+    "project_id": "sportsquare-2995e",
+    "storage_bucket": "sportsquare-2995e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036402578665:android:7bafbfaf2c982ab1",
+        "android_client_info": {
+          "package_name": "mx.iteso.sportsquare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036402578665-sgm4dtto9alj1rs1uifl4vtu4agm6pk1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.iteso.sportsquare",
+            "certificate_hash": "bcdddffc4bcf13f18525d88ce819aa48c8311d28"
+          }
+        },
+        {
+          "client_id": "1036402578665-h0vecfh8pd63b0dlnke05uuvcqje6iqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbq6qtxfHZANuJQmxz5NLeocWgZtERhkI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036402578665-h0vecfh8pd63b0dlnke05uuvcqje6iqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
