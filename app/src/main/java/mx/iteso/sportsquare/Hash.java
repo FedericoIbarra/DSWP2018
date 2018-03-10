@@ -12,7 +12,7 @@ public class Hash {
      * @param hashType el tipo de encriptacion.
      */
 
-    private static String getHash(String txt, String hashType) {
+    public static String getHash(String txt, String hashType) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest
                     .getInstance(hashType);
