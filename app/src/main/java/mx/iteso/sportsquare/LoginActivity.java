@@ -8,13 +8,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * Created by Federico Ibarra.
+ */
+
 public class LoginActivity extends AppCompatActivity {
+
 
     private Button loginBtn;
     private EditText userTxtBx;
     private EditText paswordTxtBx;
     private TextView txt;
+
     private String password;
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClick(View v){
-        password = Hash.sha1( paswordTxtBx.getText().toString());
+
+        password = paswordTxtBx.getText().toString();
+        user = userTxtBx.getText().toString();
+        password =  user.charAt(0) + password + user.charAt(user.length()-1) ;
+        password = Hash.sha1(password);
         System.out.println(password);
+
     }
 }
