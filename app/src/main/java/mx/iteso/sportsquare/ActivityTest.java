@@ -1,5 +1,6 @@
 package mx.iteso.sportsquare;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ public class ActivityTest extends AppCompatActivity {
     }
 
     public void onClick(View v){
-        Intent intent = new Intent(this, ActivityMain.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }
