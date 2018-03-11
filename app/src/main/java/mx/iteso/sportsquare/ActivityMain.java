@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +44,17 @@ public class ActivityMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        Button button = findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 }
