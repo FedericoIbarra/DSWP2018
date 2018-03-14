@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    private EditText newUsernameET;
+    private EditText newEmailET;
     private EditText newPasswordET;
     private EditText retypePassET;
 
@@ -38,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        newUsernameET = findViewById(R.id.etSignupUsername);
+        newEmailET = findViewById(R.id.etSignupEmail);
         newPasswordET = findViewById(R.id.etSignupPassword);
         retypePassET = findViewById(R.id.etRetypePass);
 
@@ -50,10 +50,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    //Click listener.
     @Override
     public void onClick(View view) {
 
-        if (TextUtils.isEmpty(newUsernameET.getText().toString())
+        //Check if the EditTexts are empty. If true: show toast.
+        if (TextUtils.isEmpty(newEmailET.getText().toString())
                 || TextUtils.isEmpty(newPasswordET.getText().toString())
                 || TextUtils.isEmpty(retypePassET.getText().toString())) {
 
@@ -61,53 +63,65 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
+        //Confirms if the EditTexts of the passwords are correct. If false: show toast.
         if (!TextUtils.equals(newPasswordET.getText().toString(), retypePassET.getText().toString())) {
             Toast.makeText(this, "Both password fields MUST match", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-        String username = newUsernameET.getText().toString();
+        String email = newEmailET.getText().toString();
         String password = newPasswordET.getText().toString();
-        Log.d("USER_TAG", "Username: " + username + " >> Pass: " + password);
 
-        insertNewUserToDB();
+        //Check if password have more than 6 chars (Firebase rule).
+        if (password.length() < 6) {
+            Toast.makeText(this, "Password must have more than 6 characters!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //Authenticates user with email and password.
+        authenticateNewUser(email, password);
+
     }
 
-
-    private void insertNewUserToDB() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        //Get Firebase auth instance
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        //creates new userId for firebase.
-        String userId = mDatabase.push().getKey();
-
-        //creating user object.
-        User user = new User("liu.diego@hotmail.com","prueba123", "contra123", "Diego",
-                "Galindo", "14-02-92", true);
-
-        //pushing user to 'users' node using the userId.
-        mDatabase.child(userId).setValue(user);
-
-        Toast.makeText(this, "Signup successfull!!", Toast.LENGTH_SHORT).show();
-
-
-        //create user
-        auth.createUserWithEmailAndPassword("liu.diego@email.com", "contra123")
+    //Creates an user authentication in Firebase.
+    private void authenticateNewUser(final String email, final String password) {
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("AUTH_LOG", "Authentication successful");
+                            //insertNewUserToDB(email, password);
+
+                            //Start LoginActivity.
+                            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                            finish();
+
                         } else {
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
 
 
+    //Save a user into the Firebase Database.
+    //TODO: FIRST it must be created some rule to link user auth UUID to the new User UUID.
+    private void insertNewUserToDB(String email, String password) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
+        //creates new userId for firebase.
+        String userId = mDatabase.push().getKey();
+        //creating user object.
+        User user = new User(email,"prueba123", password, "Diego",
+                "Galindo", "14-02-92", true);
+
+        //pushing user to 'users' node using the userId.
+        mDatabase.child(userId).setValue(user);
+        Toast.makeText(this, "Signup successfull!!", Toast.LENGTH_SHORT).show();
     }
 
 }

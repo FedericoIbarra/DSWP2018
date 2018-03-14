@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/tvSignupUsername"
-        android:text="@string/signup_username_text"
+        android:text="@string/signup_email_text"
         android:textSize="18sp"
         android:textAlignment="center"
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
 
 
     <EditText
-        android:id="@+id/etSignupUsername"
+        android:id="@+id/etSignupEmail"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -2,12 +2,14 @@
     <string name="app_name">SportSquare</string>
     <string name="login_title_text">LOGIN</string>
     <string name="signup_title_text">SIGN UP</string>
-    <string name="username_text">username</string>
+    <string name="email_text">email</string>
     <string name="password_text">password</string>
 
-    <string name="signup_username_text">type new username</string>
+    <string name="signup_email_text">type your email</string>
     <string name="signup_password_text">type new password</string>
     <string name="signup_reptype_password_text">retype password</string>
 
     <string name="forgot_pass">Did you forgot your password?</string>
+    <string name="or_text">OR</string>
+
 </resources>
