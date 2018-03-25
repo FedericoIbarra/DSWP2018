@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
         String email = newEmailET.getText().toString();
-        String password = newPasswordET.getText().toString();
+        String password = Hash.sha1(newPasswordET.getText().toString());
 
         //Check if password have more than 6 chars (Firebase rule).
         if (password.length() < 6) {
@@ -116,7 +116,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //creates new userId for firebase.
         String userId = mDatabase.push().getKey();
         //creating user object.
-        User user = new User(email,"prueba123", password, "Diego",
+        User user = new User(email,"prueba123", password, Hash.sha1("Diego"),
                 "Galindo", "14-02-92", true);
 
         //pushing user to 'users' node using the userId.
