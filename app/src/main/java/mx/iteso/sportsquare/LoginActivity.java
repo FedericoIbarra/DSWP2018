@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 String email = et_email.getText().toString();
-                final String password = et_password.getText().toString();
+                final String password = Hash.sha1(et_password.getText().toString());
 
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
