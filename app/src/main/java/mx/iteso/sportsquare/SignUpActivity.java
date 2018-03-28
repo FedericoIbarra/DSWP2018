@@ -1,10 +1,7 @@
 package mx.iteso.sportsquare;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,8 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * SignupActivity
@@ -36,8 +35,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = "SIGNUP_TAG";
     private EditText newUsername, newName, newEmailET, newPasswordET, retypePassET;
     private CheckBox cbIsAdmin;
+    private boolean isTaken;
+    private boolean allOK = true;
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference dbReference;
+    private FirebaseDatabase database;
     private FirebaseAuth auth;
     private ProgressDialog progressDialog;
 
@@ -52,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         retypePassET = findViewById(R.id.etRetypePass);
         cbIsAdmin = findViewById(R.id.cbAdminAccount);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        dbReference = FirebaseDatabase.getInstance().getReference();
 
         Button signupBtn = findViewById(R.id.btnSignup);
         signupBtn.setOnClickListener(this);
@@ -63,11 +65,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     //Click listener.
     @Override
     public void onClick(View view) {
-
         progressDialog = new ProgressDialog(SignUpActivity.this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-
 
         //Check if the EditTexts are empty. If true: show toast.
         if (TextUtils.isEmpty(newEmailET.getText().toString())
@@ -77,33 +77,44 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 || TextUtils.isEmpty(newName.getText())) {
 
             Toast.makeText(this, "You MUST fill every field to continue!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        //Confirms if the EditTexts of the passwords are correct. If false: show toast.
-        if (!TextUtils.equals(newPasswordET.getText().toString(), retypePassET.getText().toString())) {
-            Toast.makeText(this, "Both password fields MUST match", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
-        String email = newEmailET.getText().toString();
-        String password = Hash.sha1(newPasswordET.getText().toString());
-
-        //Validate password
-        if(!validatePass(newPasswordET.getText().toString())) {
-            Toast.makeText(this, "Password must have at least one capital letter, one special character and one number", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
             return;
         }
 
         //Check if password have more than 6 chars (Firebase rule).
         if (newPasswordET.getText().toString().length() < 6) {
             Toast.makeText(this, "Password must have more than 6 characters!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
             return;
         }
 
-        //Authenticates user with email and password.
-        authenticateNewUser(email, password);
+        //Confirms if the EditTexts of the passwords are correct. If false: show toast.
+        if (!TextUtils.equals(newPasswordET.getText().toString(), retypePassET.getText().toString())) {
+            Toast.makeText(this, "Both password fields MUST match", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
+
+        //Validate password
+        if(!validatePass(newPasswordET.getText().toString())) {
+            Toast.makeText(this, "Password must have at least one capital letter, one special character and one number", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
+
+        String email = newEmailET.getText().toString();
+        String password = Hash.sha1(newPasswordET.getText().toString());
+
+        //First check if username exists.
+        if (doesNameExist(newUsername.getText().toString())) {
+            Toast.makeText(this, "That Username is already taken!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            allOK = false;
+        } else {
+            //Authenticates user with email and password.
+            authenticateNewUser(email, password);
+        }
+
 
     }
 
@@ -112,7 +123,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * At least one capital letter, one number and one special character.
      * @param password a string with the password.
      * */
-
     boolean validatePass(String password) {
         boolean bol = false;
         int i, x = 0;
@@ -144,11 +154,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         } else {
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
+                            allOK = false;
                         }
                     }
                 });
     }
-
 
     //Save a user into the Firebase Database.
     private void insertNewUserToDB(String email, String password) {
@@ -167,18 +178,54 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         User user = new User(UUID, email, newUsername.getText().toString(), password, newName.getText().toString(),
                 "example_birth", cbIsAdmin.isChecked());
 
-        //User user = new User(email,"prueba123", password, Hash.sha1("Diego"),
+        //User usser = new User(email,"prueba123", password, Hash.sha1("Diego"),
           //      "Galindo", "14-02-92", true);
 
 
-        //pushing user to 'users' node using the userId.
-        mDatabase.child(userId).setValue(user);
-        Toast.makeText(getApplicationContext(), "Signup successfull!!", Toast.LENGTH_SHORT).show();
+        if (allOK) {
+            //pushing user to 'users' node using the userId.
+            mDatabase.child(userId).setValue(user);
+            registerUsername();
 
-
-        progressDialog.dismiss();
-        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-        finish();
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Signup successfull!!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+            finish();
+        }
     }
+
+    private void registerUsername() {
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference takenUserNames = database.getReference("usernames");
+
+        takenUserNames.child(newUsername.getText().toString()).setValue(true);
+    }
+
+    public boolean doesNameExist(final String sUsername) {
+        DatabaseReference theTakenNameRef = dbReference.getRef().child("usernames");
+        theTakenNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(sUsername)) {
+                    isTaken = true;
+                } else {
+                    isTaken = false;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),
+                        "Enter a valid Username!", Toast.LENGTH_SHORT).show();
+                isTaken = true;
+                allOK = false;
+            }
+        });
+
+        return isTaken;
+    }
+
+
 
 }

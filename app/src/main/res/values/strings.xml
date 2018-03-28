@@ -19,5 +19,6 @@
     <string name="signup_username">new username</string>
     <string name="signup_name">type your name</string>
     <string name="signup_admintextaccount">This will be an Admin account</string>
+    <string name="logout">Logout</string>
 
 </resources>

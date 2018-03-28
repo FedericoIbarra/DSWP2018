@@ -25,6 +25,7 @@ public class ActivityMain extends AppCompatActivity {
 
     private TextView message;
     private Button btn_login;
+    private Button btn_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,12 @@ public class ActivityMain extends AppCompatActivity {
 
         message = findViewById(R.id.activity_main_firebase_text);
         btn_login = findViewById(R.id.btn_loginActivity);
+        btn_logout = findViewById(R.id.btn_logout);
 
         getMessageFromFirebase();
         checkUser();
         onBtnToLoginActivityClicked();
+        onLogout();
 
     }
 
@@ -92,4 +95,13 @@ public class ActivityMain extends AppCompatActivity {
         });
     }
 
+    private void onLogout() {
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                System.exit(0);
+            }
+        });
+    }
 }
