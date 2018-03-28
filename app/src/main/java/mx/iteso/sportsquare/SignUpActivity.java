@@ -59,6 +59,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
     //Click listener.
     @Override
     public void onClick(View view) {
@@ -87,10 +88,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
         String email = newEmailET.getText().toString();
-        String password = newPasswordET.getText().toString();
+        String password = Hash.sha1(newPasswordET.getText().toString());
+
+        //Validate password
+        if(!validatePass(newPasswordET.getText().toString())) {
+            Toast.makeText(this, "Password must have at least one capital letter, one special character and one number", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         //Check if password have more than 6 chars (Firebase rule).
-        if (password.length() < 6) {
+        if (newPasswordET.getText().toString().length() < 6) {
             Toast.makeText(this, "Password must have more than 6 characters!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -98,6 +105,27 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //Authenticates user with email and password.
         authenticateNewUser(email, password);
 
+    }
+
+    /**
+     * Validate Password.
+     * At least one capital letter, one number and one special character.
+     * @param password a string with the password.
+     * */
+
+    boolean validatePass(String password) {
+        boolean bol = false;
+        int i, x = 0;
+
+        for(i = 0; i < password.length(); i++) {
+            if(password.charAt(i) > 64 && password.charAt(i) < 91) x++;
+            if(password.charAt(i) > 47 && password.charAt(i) < 58) x++;
+            if(password.charAt(i) > 32 && password.charAt(i) < 48) x++;
+        }
+
+        if(x == 3) bol = true;
+
+        return bol;
     }
 
     //Creates an user authentication in Firebase.
@@ -139,6 +167,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         User user = new User(UUID, email, newUsername.getText().toString(), password, newName.getText().toString(),
                 "example_birth", cbIsAdmin.isChecked());
 
+        //User user = new User(email,"prueba123", password, Hash.sha1("Diego"),
+          //      "Galindo", "14-02-92", true);
+
+
         //pushing user to 'users' node using the userId.
         mDatabase.child(userId).setValue(user);
         Toast.makeText(getApplicationContext(), "Signup successfull!!", Toast.LENGTH_SHORT).show();
@@ -148,6 +180,5 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
         finish();
     }
-
 
 }
