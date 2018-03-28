@@ -13,16 +13,51 @@
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"/>
+        android:paddingBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:text="@string/signup_username"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:textAlignment="center"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:text="@string/signup_name"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/etName"
+        android:textAlignment="center"
+        android:inputType="textCapWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"/>
+
 
     <TextView
         android:id="@+id/tvSignupUsername"
         android:text="@string/signup_email_text"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="10dp"/>
 
 
     <EditText
@@ -36,11 +71,11 @@
     <TextView
         android:id="@+id/tvSignupPassword"
         android:text="@string/signup_password_text"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/etSignupPassword"
@@ -54,11 +89,11 @@
     <TextView
         android:id="@+id/tvRetypePass"
         android:text="@string/signup_reptype_password_text"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/etRetypePass"
@@ -69,14 +104,21 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"/>
 
+    <CheckBox
+        android:id="@+id/cbAdminAccount"
+        android:text="@string/signup_admintextaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
     <Button
         android:id="@+id/btnSignup"
         android:text="@string/signup_title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
+
 
 
 

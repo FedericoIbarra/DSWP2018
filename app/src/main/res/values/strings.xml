@@ -4,6 +4,7 @@
     <string name="signup_title_text">SIGN UP</string>
     <string name="email_text">email</string>
     <string name="password_text">password</string>
+    <string name="text_toLoginActivity">To Loging Activity</string>
 
     <string name="signup_email_text">type your email</string>
     <string name="signup_password_text">type new password</string>
@@ -11,5 +12,12 @@
 
     <string name="forgot_pass">Did you forgot your password?</string>
     <string name="or_text">OR</string>
+
+    <string name="pass_recovery_title">Password Recovery</string>
+    <string name="pass_recovery_button">Recover password</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="signup_username">new username</string>
+    <string name="signup_name">type your name</string>
+    <string name="signup_admintextaccount">This will be an Admin account</string>
 
 </resources>

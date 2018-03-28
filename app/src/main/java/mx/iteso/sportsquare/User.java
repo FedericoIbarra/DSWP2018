@@ -11,10 +11,10 @@ import java.util.Date;
 @IgnoreExtraProperties
 public class User {
 
+    public String uuid;
     public String username;
     public String password;
-    public String firstName;
-    public String lastName;
+    public String fullName;
     public String email;
     public String dateOfBirth;
     public boolean isAdmin;
@@ -23,11 +23,13 @@ public class User {
 
     }
 
-    public User(String email, String username, String password, String firstName, String lastName, String dateOfBirth, boolean isAdmin) {
+    public User(String uuid, String email, String username,
+                String password, String fullName, String dateOfBirth, boolean isAdmin) {
+
+        this.uuid = uuid;
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.isAdmin = isAdmin;
         this.email = email;
