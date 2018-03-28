@@ -49,6 +49,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    protected boolean isEmailValid(String email){
+        //TODO
+        return true;
+    }
 
     //Click listener.
     @Override
@@ -116,7 +120,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     //Creates an user authentication in Firebase.
-    private void authenticateNewUser(final String email, final String password) {
+    protected void authenticateNewUser(final String email, final String password) {
         final FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
