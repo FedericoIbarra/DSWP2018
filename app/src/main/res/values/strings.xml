@@ -2,9 +2,15 @@
     <string name="app_name">SportSquare</string>
     <string name="login_title_text">LOGIN</string>
     <string name="signup_title_text">SIGN UP</string>
+
+   
+    
+    <string name="text_toLoginActivity">To Loging Activity</string>
+
     <string name="email_text">Email</string>
     <string name="password_text">Password</string>
     <string name="username">Username</string>
+
 
     <string name="signup_email_text">Type your email</string>
     <string name="signup_password_text">Type new password</string>
@@ -38,5 +44,13 @@
         completions."
     </string>
     <string name="title_activity_contact_form">Establishment Contact Info</string>
+
+    <string name="pass_recovery_title">Password Recovery</string>
+    <string name="pass_recovery_button">Recover password</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="signup_username">new username</string>
+    <string name="signup_name">type your name</string>
+    <string name="signup_admintextaccount">This will be an Admin account</string>
+    <string name="logout">Logout</string>
 
 </resources>

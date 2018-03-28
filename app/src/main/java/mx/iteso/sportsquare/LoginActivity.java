@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         tv_signup = findViewById(R.id.tvSignup);
         onLoginAction();
         onSignupUser();
-
+        onForgotPass();
 
     }
 
@@ -56,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.show();
                 FirebaseAuth auth = FirebaseAuth.getInstance();
 
+
+                // Check if the EditTexts are empty. If True: show a Toast.
                 if (TextUtils.isEmpty(et_email.getText().toString())
                         || TextUtils.isEmpty(et_password.getText().toString())) {
 
@@ -64,16 +66,20 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-
+                //Get the text from the EditTexts.
                 String email = et_email.getText().toString();
                 final String password = Hash.sha1(et_password.getText().toString());
 
+                //Sign the user to Firebase Auth.
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                //Check if the task to the Firebase Auth is successful.
+                                //If is not then it means there was an error and
+                                //throws a Toast that the sign in was unsuccessful.
                                 if (!task.isSuccessful()) {
-                                    // there was an error
                                     progressDialog.dismiss();
                                     Toast.makeText(LoginActivity.this, "Failed to Login!",
                                             Toast.LENGTH_SHORT).show();
@@ -89,9 +95,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: Implements Firebase method for recovery password.
+    //Show a Dialog fragment for the user to recover the password with de email.
     private void onForgotPass() {
-
+        tv_forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentForgotPass forgotPassFrag = new FragmentForgotPass();
+                forgotPassFrag.show(getFragmentManager(), "Dialog Fragment");
+            }
+        });
     }
 
     //Implementation of click for sign up a new user.
@@ -104,6 +116,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
