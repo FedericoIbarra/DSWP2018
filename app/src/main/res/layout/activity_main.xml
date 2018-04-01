@@ -36,5 +36,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/activity_main_user_wall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Wall Page"/>
+
 
 </LinearLayout>
