@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:text="This is a publication"/>
             <ImageView
+                android:id="@+id/item_card_comment"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_below="@id/item_card_publication_text"

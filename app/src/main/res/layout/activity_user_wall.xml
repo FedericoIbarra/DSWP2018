@@ -38,15 +38,16 @@
                 android:layout_below="@id/activity_user_wall_profile_image"
                 android:hint="Type something..."
                 android:maxLines="1"
-                android:inputType="text"
-                />
+                android:inputType="text" />
             <ImageView
+                android:id="@+id/activity_user_wall_publish"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/send_button"/>
         </LinearLayout>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_user_wall_publications_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp">
