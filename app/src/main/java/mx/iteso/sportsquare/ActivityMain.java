@@ -20,8 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 public class ActivityMain extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
-    FirebaseAuth auth;
+
+    
     FirebaseUser user;
+
+    private FirebaseAuth auth;
+    private TextView message;
+    private Button button;
+    private Button button2;
+
 
     private TextView message;
     private Button btn_login;
@@ -95,6 +102,7 @@ public class ActivityMain extends AppCompatActivity {
         });
     }
 
+
     private void onLogout() {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,5 +111,16 @@ public class ActivityMain extends AppCompatActivity {
                 System.exit(0);
             }
         });
+
+        button2 = findViewById(R.id.button2establishment);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), EstablishmentSignUp.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
