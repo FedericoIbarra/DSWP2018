@@ -178,14 +178,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("UUID_TAG", "THE UUID >> " + UUID);
 
         //creates new userId for firebase.
-        String userId = mDatabase.push().getKey();
+        String userId = UUID;
         //creating user object.
-        User user = new User(UUID, email, newUsername.getText().toString(), password, newName.getText().toString(),
+        User user = new User(email, newUsername.getText().toString(), password, newName.getText().toString(),
                 "example_birth", cbIsAdmin.isChecked());
-
-        //User usser = new User(email,"prueba123", password, Hash.sha1("Diego"),
-          //      "Galindo", "14-02-92", true);
-
+        
 
         if (allOK) {
             //pushing user to 'users' node using the userId.
