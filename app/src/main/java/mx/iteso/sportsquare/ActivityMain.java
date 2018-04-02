@@ -25,7 +25,7 @@ public class ActivityMain extends AppCompatActivity {
     FirebaseUser user;
 
     private FirebaseAuth auth;
-    private TextView message;
+    //private TextView message;
     private Button button;
     private Button button2;
 
