@@ -11,7 +11,7 @@ import java.util.Date;
 @IgnoreExtraProperties
 public class User {
 
-    public String uuid;
+
     public String username;
     public String password;
     public String fullName;
@@ -23,10 +23,9 @@ public class User {
 
     }
 
-    public User(String uuid, String email, String username,
+    public User(String email, String username,
                 String password, String fullName, String dateOfBirth, boolean isAdmin) {
 
-        this.uuid = uuid;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
