@@ -26,7 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
+<<<<<<< HEAD
+=======
  * SignupActivity
+>>>>>>> 203735d21375a51b83ac86d5d535a0e7ba4e80fb
  * Created by dgalindo on 10/03/18.
  */
 
@@ -133,8 +136,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         for(i = 0; i < password.length(); i++) {
             if(password.charAt(i) > 64 && password.charAt(i) < 91) x++;
-            if(password.charAt(i) > 47 && password.charAt(i) < 58) x++;
-            if(password.charAt(i) > 32 && password.charAt(i) < 48) x++;
+            else if (password.charAt(i) > 47 && password.charAt(i) < 58) x++;
+            else if (password.charAt(i) > 32 && password.charAt(i) < 48) x++;
         }
 
         if(x == 3) bol = true;
@@ -143,6 +146,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     //Creates an user authentication in Firebase.
+    //qwertyA1.
 
     protected void authenticateNewUser(final String email, final String password) {
         final FirebaseAuth auth = FirebaseAuth.getInstance();
