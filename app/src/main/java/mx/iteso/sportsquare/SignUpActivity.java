@@ -186,7 +186,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //creating user object.
         User user = new User(email, newUsername.getText().toString(), password, newName.getText().toString(),
                 "example_birth", cbIsAdmin.isChecked());
-        
+
 
         if (allOK) {
             //pushing user to 'users' node using the userId.
