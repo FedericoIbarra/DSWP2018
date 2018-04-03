@@ -23,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityTest" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity
@@ -31,7 +30,8 @@
             android:label="@string/title_activity_establishment_sign_up" />
         <activity
             android:name=".ContactForm"
-            android:label="@string/title_activity_contact_form"></activity>
+            android:label="@string/title_activity_contact_form" />
+        <activity android:name=".ActivityUserWall"></activity>
     </application>
 
 </manifest>

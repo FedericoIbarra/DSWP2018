@@ -18,21 +18,17 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class ActivityMain extends AppCompatActivity {
-
     private DatabaseReference mDatabase;
-
-    
     FirebaseUser user;
 
     private FirebaseAuth auth;
-    //private TextView message;
+    private TextView message;
     private Button button;
     private Button button2;
 
-
-    private TextView message;
     private Button btn_login;
     private Button btn_logout;
+    private Button btn_user_wall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,38 +39,24 @@ public class ActivityMain extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        message = findViewById(R.id.activity_main_firebase_text);
         btn_login = findViewById(R.id.btn_loginActivity);
         btn_logout = findViewById(R.id.btn_logout);
+        btn_user_wall = findViewById(R.id.activity_main_user_wall);
 
-        getMessageFromFirebase();
         checkUser();
         onBtnToLoginActivityClicked();
         onLogout();
+        userWall();
 
     }
 
-    //Simple Hello World from Firebase
-    private void getMessageFromFirebase() {
-        mDatabase.child("message").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                message.setText(dataSnapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        message.setOnClickListener(new View.OnClickListener() {
+    private void userWall() {
+        btn_user_wall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityTest.class);
+                Intent intent = new Intent(view.getContext(), ActivityUserWall.class);
                 startActivity(intent);
             }
-
         });
     }
 

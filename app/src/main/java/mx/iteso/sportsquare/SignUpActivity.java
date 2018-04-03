@@ -100,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         //Validate password
-        if(!validatePass(newPasswordET.getText().toString())) {
+       if(!validatePass(newPasswordET.getText().toString())) {
             Toast.makeText(this, "Password must have at least one capital letter, one special character and one number", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;

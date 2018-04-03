@@ -7,14 +7,6 @@
     tools:context="mx.iteso.sportsquare.ActivityMain"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/activity_main_firebase_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="20sp"
-        android:textAlignment="center"/>
-
     <Button
         android:id="@+id/btn_loginActivity"
         android:layout_width="match_parent"
@@ -35,6 +27,12 @@
         android:text="Establishment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/activity_main_user_wall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Wall Page"/>
 
 
 </LinearLayout>
