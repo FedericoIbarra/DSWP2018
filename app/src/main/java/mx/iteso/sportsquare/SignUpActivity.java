@@ -136,8 +136,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         for(i = 0; i < password.length(); i++) {
             if(password.charAt(i) > 64 && password.charAt(i) < 91) x++;
-            if(password.charAt(i) > 47 && password.charAt(i) < 58) x++;
-            if(password.charAt(i) > 32 && password.charAt(i) < 48) x++;
+            else if (password.charAt(i) > 47 && password.charAt(i) < 58) x++;
+            else if (password.charAt(i) > 32 && password.charAt(i) < 48) x++;
         }
 
         if(x == 3) bol = true;
@@ -146,6 +146,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     //Creates an user authentication in Firebase.
+    //qwertyA1.
 
     protected void authenticateNewUser(final String email, final String password) {
         final FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -181,14 +182,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("UUID_TAG", "THE UUID >> " + UUID);
 
         //creates new userId for firebase.
-        String userId = mDatabase.push().getKey();
+        String userId = UUID;
         //creating user object.
-        User user = new User(UUID, email, newUsername.getText().toString(), password, newName.getText().toString(),
+        User user = new User(email, newUsername.getText().toString(), password, newName.getText().toString(),
                 "example_birth", cbIsAdmin.isChecked());
-
-        //User usser = new User(email,"prueba123", password, Hash.sha1("Diego"),
-          //      "Galindo", "14-02-92", true);
-
+        
 
         if (allOK) {
             //pushing user to 'users' node using the userId.
