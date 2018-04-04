@@ -33,6 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="User Wall Page"/>
+    <Button
+        android:id="@+id/activity_main_delete_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete User"/>
 
 
 </LinearLayout>
