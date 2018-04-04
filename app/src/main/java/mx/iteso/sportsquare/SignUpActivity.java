@@ -26,10 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
-<<<<<<< HEAD
-=======
- * SignupActivity
->>>>>>> 203735d21375a51b83ac86d5d535a0e7ba4e80fb
  * Created by dgalindo on 10/03/18.
  */
 
@@ -102,12 +98,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        //Validate password
+/*        //Validate password
        if(!validatePass(newPasswordET.getText().toString())) {
             Toast.makeText(this, "Password must have at least one capital letter, one special character and one number", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;
-        }
+        }*/
 
         String email = newEmailET.getText().toString();
         String password = Hash.sha1(newPasswordET.getText().toString());
@@ -183,13 +179,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         //creates new userId for firebase.
         String userId = UUID;
-        //creating user object.
+        //creating User object.
         User user = new User(email, newUsername.getText().toString(), password, newName.getText().toString(),
                 "example_birth", cbIsAdmin.isChecked());
 
 
         if (allOK) {
-            //pushing user to 'users' node using the userId.
+            //pushing User to 'users' node using the userId.
             mDatabase.child(userId).setValue(user);
             registerUsername();
 

@@ -1,7 +1,8 @@
 package mx.iteso.sportsquare;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class ActivityMain extends AppCompatActivity {
+public class ActivityMain extends ActivityBase {
     private DatabaseReference mDatabase;
-    FirebaseUser user;
+    private FirebaseUser currentFirebaseUser;
+    private User userInfo;
 
     private FirebaseAuth auth;
     private TextView message;
@@ -29,6 +31,7 @@ public class ActivityMain extends AppCompatActivity {
     private Button btn_login;
     private Button btn_logout;
     private Button btn_user_wall;
+    private Button btn_delete_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +40,63 @@ public class ActivityMain extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        currentFirebaseUser = auth.getCurrentUser();
 
         btn_login = findViewById(R.id.btn_loginActivity);
         btn_logout = findViewById(R.id.btn_logout);
         btn_user_wall = findViewById(R.id.activity_main_user_wall);
+        btn_delete_user = findViewById(R.id.activity_main_delete_user);
 
         checkUser();
+        readUser();
         onBtnToLoginActivityClicked();
         onLogout();
         userWall();
+        deleteUser();
+    }
 
+    private void readUser() {
+        mDatabase.child("users").child(currentFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userInfo = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void deleteUser() {
+        btn_delete_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(view.getContext());
+                deleteDialogBuilder.setTitle("Delete user")
+                        .setMessage("Are you sure you want to delete your account?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mDatabase.child("users").child(currentFirebaseUser.getUid()).removeValue();
+                                mDatabase.child("usernames").child(userInfo.username).removeValue();
+                                mDatabase.child("publications").child(currentFirebaseUser.getUid()).removeValue();
+                                currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                currentFirebaseUser.delete();
+
+                                finish();
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Cancel", null);
+
+                AlertDialog deleteAlert =  deleteDialogBuilder.create();
+                deleteAlert.show();
+            }
+        });
     }
 
     private void userWall() {
@@ -64,11 +113,11 @@ public class ActivityMain extends AppCompatActivity {
     //And check if the user have verify his account.
     private void checkUser() {
 
-        if (user == null) {
+        if (currentFirebaseUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
 
-        } else if (!user.isEmailVerified()) {
+        } else if (!currentFirebaseUser.isEmailVerified()) {
             Toast.makeText(this, "You Must verify your email!", Toast.LENGTH_LONG).show();
         }
 
