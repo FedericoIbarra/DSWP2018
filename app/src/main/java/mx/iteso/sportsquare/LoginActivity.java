@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
  * Login Activity
  * Created by dgalindo on 10/03/18.
  */
-
 public class LoginActivity extends AppCompatActivity {
 
     EditText et_email;
@@ -71,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                 final String password = Hash.sha1(et_password.getText().toString());
 
                 //Sign the user to Firebase Auth.
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this,
+                        new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -85,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     progressDialog.dismiss();
-                                    Intent intent = new Intent(LoginActivity.this, ActivityMain.class);
+                                    Intent intent = new Intent(LoginActivity.this, ActivityProfile.class);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -106,15 +107,22 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //Implementation of click for sign up a new user.
+    /**
+     * Implementation of click for sign up a new user.
+     */
     private void onSignupUser() {
         tv_signup.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), SignUpActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    private void onSignupGoogle() {
+
     }
 
 }
