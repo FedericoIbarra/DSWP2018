@@ -25,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import mx.iteso.sportsquare.beans.User;
+import mx.iteso.sportsquare.util.Hash;
+
 /**
  * Created by dgalindo on 10/03/18.
  */

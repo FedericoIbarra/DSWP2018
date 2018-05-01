@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import mx.iteso.sportsquare.util.Hash;
+
 /**
  * Login Activity
  * Created by dgalindo on 10/03/18.

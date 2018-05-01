@@ -1,4 +1,4 @@
-package mx.iteso.sportsquare;
+package mx.iteso.sportsquare.beans;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 

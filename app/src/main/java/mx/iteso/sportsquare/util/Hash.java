@@ -1,4 +1,4 @@
-package mx.iteso.sportsquare;
+package mx.iteso.sportsquare.util;
 
 /**
  * Created by federicoibarra on 09/03/18.
