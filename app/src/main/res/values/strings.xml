@@ -51,5 +51,6 @@
     <string name="signup_name">type your name</string>
     <string name="signup_admintextaccount">This will be an Admin account</string>
     <string name="logout">Logout</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
 
 </resources>

@@ -32,6 +32,7 @@
             android:name=".ContactForm"
             android:label="@string/title_activity_contact_form" />
         <activity android:name=".ActivityUserWall"></activity>
+        <activity android:name=".ActivityProfile" />
     </application>
 
 </manifest>
