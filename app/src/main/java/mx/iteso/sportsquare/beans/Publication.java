@@ -1,4 +1,4 @@
-package mx.iteso.sportsquare;
+package mx.iteso.sportsquare.beans;
 
 /**
  * Created by Desarrollo on 31/03/2018.
@@ -8,9 +8,8 @@ public class Publication {
     private String id;
     private String publicationText;
 
-    public Publication(){
-        id = "";
-        publicationText = "";
+    public Publication() {
+        
     }
 
     public Publication(String id, String publicationText) {

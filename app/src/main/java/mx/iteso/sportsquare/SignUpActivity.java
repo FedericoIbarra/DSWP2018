@@ -25,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import mx.iteso.sportsquare.beans.User;
+import mx.iteso.sportsquare.util.Hash;
+
 /**
  * Created by dgalindo on 10/03/18.
  */
@@ -103,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "Password must have at least one capital letter, one special character and one number", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;
-        }*/
+        }//*/
 
         String email = newEmailET.getText().toString();
         String password = Hash.sha1(newPasswordET.getText().toString());
