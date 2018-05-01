@@ -19,6 +19,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import mx.iteso.sportsquare.adapters.PublicationAdapter;
+import mx.iteso.sportsquare.beans.Publication;
+
 
 public class ActivityUserWall extends AppCompatActivity {
     private RecyclerView mRecyclerView;

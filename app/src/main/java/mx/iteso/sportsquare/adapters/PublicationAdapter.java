@@ -1,4 +1,4 @@
-package mx.iteso.sportsquare;
+package mx.iteso.sportsquare.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import mx.iteso.sportsquare.R;
+import mx.iteso.sportsquare.beans.Publication;
 
 /**
  * Created by Desarrollo on 31/03/2018.
