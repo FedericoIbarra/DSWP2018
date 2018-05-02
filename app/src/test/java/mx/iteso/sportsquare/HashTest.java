@@ -2,6 +2,8 @@ package mx.iteso.sportsquare;
 
 import org.junit.Test;
 
+import mx.iteso.sportsquare.util.Hash;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
