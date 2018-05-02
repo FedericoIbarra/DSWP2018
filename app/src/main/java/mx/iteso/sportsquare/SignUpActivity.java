@@ -116,12 +116,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
 
+
         //Validate password
         if(!validatePass(et_newPassword.getText().toString())) {
             Toast.makeText(this, "Password must have at least one capital letter, one special character and one number", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return false;
         }
+
 
         if (doesNameExist(et_newUsername.getText().toString())) {
             Toast.makeText(this, "That Username is already taken!", Toast.LENGTH_SHORT).show();
@@ -144,14 +146,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         for(i = 0; i < password.length(); i++) {
             if(password.charAt(i) > 64 && password.charAt(i) < 91) x++;
-            if(password.charAt(i) > 47 && password.charAt(i) < 58) x++;
-            if(password.charAt(i) > 32 && password.charAt(i) < 48) x++;
+            else if (password.charAt(i) > 47 && password.charAt(i) < 58) x++;
+            else if (password.charAt(i) > 32 && password.charAt(i) < 48) x++;
         }
 
         if(x == 3) bol = true;
 
         return bol;
     }
+
+
+    //Creates an user authentication in Firebase.
+    //qwertyA1.
 
 
     /**
@@ -199,13 +205,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         //creates new userId for firebase.
         String userId = UUID;
+
         //creating user object.
         User user = new User(email, et_newUsername.getText().toString(), password, et_newName.getText().toString(),
                 "example_birth", cb_isAdmin.isChecked());
 
 
+
         if (allOK) {
-            //pushing user to 'users' node using the userId.
+            //pushing User to 'users' node using the userId.
             mDatabase.child(userId).setValue(user);
             registerUsername();
 
