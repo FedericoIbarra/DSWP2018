@@ -69,11 +69,11 @@ public class EstablishmentSignUp extends SignUpActivity {
         String email = emailET.getText().toString();
         String password = Hash.sha1(passwordET.getText().toString());
 
-        //Check if email has @.
+        /*Check if email has @.
         if (!isEmailValid(email)) {
             Toast.makeText(this, "Invalid email!", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }*/
 
         //Check if password have more than 6 chars (Firebase rule).
         if (passwordET.getText().toString().length() < 6) {
