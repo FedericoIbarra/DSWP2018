@@ -1,16 +1,17 @@
 package mx.iteso.sportsquare.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import mx.iteso.sportsquare.ActivityComments;
 import mx.iteso.sportsquare.R;
 import mx.iteso.sportsquare.beans.Publication;
 
@@ -34,14 +35,18 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.publicationText.setText(mDataSet.get(position).getPublicationText());
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Opens activity for comments", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ActivityComments.class);
+                intent.putExtra("idPublication", mDataSet.get(position).getId());
+                intent.putExtra("publicationText", mDataSet.get(position).getPublicationText());
+                context.startActivity(intent);
             }
         });
+
     }
 
     @Override
