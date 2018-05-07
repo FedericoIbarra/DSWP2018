@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,14 +44,13 @@ public class ActivityMain extends ActivityBase {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
-        currentFirebaseUser = auth.getCurrentUser();
+
 
         btn_login = findViewById(R.id.btn_loginActivity);
         btn_logout = findViewById(R.id.btn_logout);
         btn_user_wall = findViewById(R.id.activity_main_user_wall);
         btn_delete_user = findViewById(R.id.activity_main_delete_user);
 
-        checkUser();
         readUser();
         onBtnToLoginActivityClicked();
         onLogout();
@@ -58,6 +59,10 @@ public class ActivityMain extends ActivityBase {
     }
 
     private void readUser() {
+        if (currentFirebaseUser == null) {
+            return;
+        }
+
         mDatabase.child("users").child(currentFirebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -113,15 +118,19 @@ public class ActivityMain extends ActivityBase {
 
     //Check if the user is logged in, if not it will open the LoginActivity.
     //And check if the user have verify his account.
-    private void checkUser() {
+    private void checkUser(FirebaseUser currentUser, GoogleSignInAccount account) {
 
-        if (currentFirebaseUser == null) {
+        if (currentUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
 
-        } else if (!currentFirebaseUser.isEmailVerified()) {
-            Toast.makeText(this, "You Must verify your email!", Toast.LENGTH_LONG).show();
+        } else if (account == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
+        /*else if (!currentUser.isEmailVerified()) {
+            Toast.makeText(this, "You Must verify your email!", Toast.LENGTH_LONG).show();
+        }*/
 
     }
 
@@ -135,11 +144,11 @@ public class ActivityMain extends ActivityBase {
         });
     }
 
-
     private void onLogout() {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                auth.signOut();
                 finish();
                 System.exit(0);
             }
@@ -156,4 +165,14 @@ public class ActivityMain extends ActivityBase {
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        checkUser(currentUser, account);
+    }
+    
 }

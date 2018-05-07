@@ -52,5 +52,28 @@
     <string name="signup_admintextaccount">This will be an Admin account</string>
     <string name="logout">Logout</string>
     <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="i_want_to_receive_email_news">I want to receive email news</string>
+    <string name="invite_friend">Invite Friend</string>
+    <string name="insert_email_to_send_the_invitation">Insert email to send the invitation</string>
+    <string name="cancel">CANCEL</string>
+    <string name="send">SEND</string>
+    <string name="invitation_title">TITLE</string>
+    <string name="invitation_email_subject">TITLE</string>
+    <string name="invitation_email_html_content"><![CDATA[<!DOCTYPE html>
+<html>
+    <body>
+        <div>
+            <a href="%%APPINVITE_LINK_PLACEHOLDER%%">Install My App</a>
+        </div>
+    </body>
+</html>]]></string>
+    <string name="app_link">https://wpbw6.app.goo.gl/rniX</string>
+    <string name="edit_info">Edit INFO</string>
+    <string name="user">User</string>
+    <string name="get_email_news">Get Email News</string>
+    <string name="save_changes">Save changes</string>
+    <string name="current_username">Current Username:</string>
+    <string name="current_full_name">Current Full Name:</string>
+    <string name="email_news">Email News:</string>
 
 </resources>

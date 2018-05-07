@@ -7,30 +7,40 @@
 
     <TextView
         android:id="@+id/tv_userprofile"
-        android:layout_width="137dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="130dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
-        android:text="User"
+        android:text="@string/user"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/btn_options"
+        app:layout_constraintBottom_toTopOf="@+id/btn_InviteFriend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_options"
+        android:id="@+id/btn_editInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="372dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="options"
+        android:text="@string/edit_info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_userprofile" />
+
+    <Button
+        android:id="@+id/btn_InviteFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="270dp"
+        android:text="@string/invite_friend"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btn_editInfo"
         app:layout_constraintTop_toBottomOf="@+id/tv_userprofile" />
 
 

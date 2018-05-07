@@ -41,6 +41,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText et_newPassword;
     private EditText et_retypePass;
     private CheckBox cb_isAdmin;
+    private CheckBox cb_emailNews;
     private boolean isTaken;
     private boolean allOK = true;
 
@@ -58,6 +59,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         et_newPassword = findViewById(R.id.etSignupPassword);
         et_retypePass = findViewById(R.id.etRetypePass);
         cb_isAdmin = findViewById(R.id.cbAdminAccount);
+        cb_emailNews = findViewById(R.id.cbEmailNews);
 
         dbReference = FirebaseDatabase.getInstance().getReference();
 
@@ -211,7 +213,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         //creating user object.
         User user = new User(email, et_newUsername.getText().toString(), password, et_newName.getText().toString(),
-                "example_birth", cb_isAdmin.isChecked());
+                "example_birth", cb_isAdmin.isChecked(), cb_emailNews.isChecked());
 
 
 

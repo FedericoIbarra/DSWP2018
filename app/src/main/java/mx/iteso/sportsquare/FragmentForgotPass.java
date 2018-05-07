@@ -7,16 +7,21 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Dialog Fragment for users that forgot their password.
@@ -25,55 +30,55 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class FragmentForgotPass extends DialogFragment {
 
-    FirebaseAuth auth;
-    EditText etEmailText;
-    ProgressBar progressBar;
+    private EditText etEmailText;
+    private Button btnPassSend, btnPassCancel;
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_forgotpass, container, false);
+        etEmailText = v.findViewById(R.id.editText_fragEmail);
+        btnPassCancel = v.findViewById(R.id.btn_passCancel);
+        btnPassSend = v.findViewById(R.id.btn_passSend);
+
+        return v;
+    }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        etEmailText = getActivity().findViewById(R.id.editText_fragEmail);
-        progressBar = getActivity().findViewById(R.id.progressBar_frag);
-
-        builder.setView(inflater.inflate(R.layout.fragment_forgotpass, null))
-                .setPositiveButton(R.string.pass_recovery_button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        progressBar.setVisibility(View.VISIBLE);
-
-                        if (TextUtils.isEmpty(etEmailText.getText())) {
-                            return;
-                        }
-
-                        String email = etEmailText.getText().toString();
-                        onForgotPass(email);
-
-                        progressBar.setVisibility(View.GONE);
-
-                    }
-                }).setNegativeButton(R.string.cancel_text, new DialogInterface.OnClickListener() {
+        btnPassSend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(View view) {
+                if (etEmailText.getText().toString().equals("")) {
+                    return;
+                }
+
+                String email = etEmailText.getText().toString();
+                onForgotPass(email);
+
+            }
+        });
+
+        btnPassCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dismiss();
             }
         });
 
-        return builder.create();
     }
 
-
-
     private void onForgotPass(String email) {
-        this.auth = FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
         auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())
                     Log.d("RECOVER_LOG", "SUCCESSFUL!!");
+                dismiss();
             }
         });
     }
