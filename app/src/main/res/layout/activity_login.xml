@@ -61,10 +61,8 @@
         android:layout_marginRight="30dp"/>
 
 
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/btnGoogleSignUp"
-        android:text="@string/sign_up_with_google"
-        android:background="@color/colorGoogle"
         android:textColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -111,6 +111,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
+    <CheckBox
+        android:id="@+id/cbEmailNews"
+        android:text="@string/i_want_to_receive_email_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
     <Button
         android:id="@+id/btnSignup"
         android:text="@string/signup_title_text"
